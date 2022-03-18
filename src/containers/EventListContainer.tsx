@@ -4,14 +4,19 @@ import { EventList } from '../components/EventList'
 
 export const EventListContainer = (props) => {
     const events = props.events || []
-    const handleSubmit = (coin) =>{
+    const handleSubmit = (coin) => {
         props.handleSubmit(coin)
     }
+    if (events) {
+        return (
+            <div>
+                <h1>Upcoming Token Events</h1>
+                {/* <EventList events={events} /> */}
+                <EventForm handleSubmit={handleSubmit} />
+            </div>
+        )
+    }
     return (
-        <div>
-            <h1>Upcoming Token Events</h1>
-            <EventList events={events}/>
-            <EventForm handleSubmit={handleSubmit}/>
-        </div>
+        <div>foo</div>
     )
 }

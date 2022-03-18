@@ -3,17 +3,18 @@ import React from 'react'
 export const EventList = (props) => {
     const events = props.events || []
 
-    const listItems = events.map((event) =>
-        <li key={event.id}>
-            {event.name} {event.earlySaleDate} {event.liquidityDate}
+    const listItems = events.map((event, key) => (
+        <li key={key}>
+            {event.name}
+            {JSON.stringify(event.earlySaleDate)}
+            {JSON.stringify(event.liquidityDate)}
         </li>
-    )
+    ))
 
-    return(
+    return (
         <div>
             <ul>{listItems}</ul>
         </div>
     )
 }
 
-// {events.map((event) => <li key='1'>{event}</li>)}
