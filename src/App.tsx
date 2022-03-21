@@ -4,8 +4,12 @@ import "./App.css";
 import { useMoralis } from "react-moralis";
 import { Button } from "@chakra-ui/button";
 import { Heading, Container } from "@chakra-ui/layout";
+import { Route, Routes, Link, Outlet } from 'react-router-dom'
 
 import { EventsDashboard } from "./containers/EventsDashboard";
+import { ChartsDashboard } from "./containers/ChartsDashboard";
+
+import NavBar from './components/NavBar'
 
 function App() {
   const {
@@ -38,26 +42,23 @@ function App() {
   if (isAuthenticated) {
     return (
       <Container maxW="container.md">
+        <NavBar isAuthenticating={isAuthenticating}
+          login={login}
+          logOut={logOut}
+          isAuthenticated={isAuthenticated} />
         <Heading>TwentyTwentyTwo Moonbags</Heading>
-        <Button isLoading={isAuthenticating} onClick={login}>
-          Metamask Login
-        </Button>
-        <Button onClick={logOut} disabled={isAuthenticating}>
-          Logout
-        </Button>
-        <EventsDashboard />
+        <Outlet />
       </Container>
     );
   }
   return (
     <Container maxW="container.md">
-      <Heading>TwentyTwentyTwo Moonbags</Heading>
-      <Button isLoading={isAuthenticating} onClick={login}>
-        Metamask Login
-      </Button>
-      <Button onClick={logOut} disabled={isAuthenticating}>
-        Logout
-      </Button>
+      <NavBar isAuthenticating={isAuthenticating}
+        login={login}
+        logOut={logOut}
+        isAuthenticated={isAuthenticated} />
+        <Heading>TwentyTwentyTwo Moonbags</Heading>
+        <Outlet />
     </Container>
   );
 }
