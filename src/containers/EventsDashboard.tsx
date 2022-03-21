@@ -14,7 +14,10 @@ export const EventsDashboard = (props) => {
     socials: false,
     earlySaleDate: new Date(),
     liquidityDate: new Date(),
-    taxCap: false
+    taxCap: false,
+    elevatedTax: false,
+    lowTax: false,
+    noTax: false
   }]);
 
   const [persistanceStatus, setPersistanceStatus] = useState({
@@ -35,7 +38,9 @@ export const EventsDashboard = (props) => {
         name: el.attributes.name, doxxed: el.attributes.doxed, audit: el.attributes.audit,
         staySafuScan: el.attributes.staySafuScan, reflections: el.attributes.reflections,
         socials: el.attributes.socials, earlySaleDate: el.attributes.earlySaleDate,
-        liquidityDate: el.attributes.liquidityDate, taxCap: el.attributes.taxCap
+        liquidityDate: el.attributes.liquidityDate, taxCap: el.attributes.taxCap,
+        elevatedTax: el.attributes.elevatedTax, lowTax: el.attributes.lowTax,
+        noTax: el.attributes.lowTax
       })
     })
 
@@ -44,6 +49,7 @@ export const EventsDashboard = (props) => {
 
   const createCoin = (coin) => {
     console.log("eventsdashboard#createCoin");
+    console.log("Creating coin: ", JSON.stringify(coin))
     setEvents((prev) => {
       console.log("coin: ", JSON.stringify(coin));
       console.log("prev: ", JSON.stringify(prev));

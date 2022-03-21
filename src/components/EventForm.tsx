@@ -9,20 +9,38 @@ import {
 import { useNewMoralisObject } from "react-moralis";
 
 export const EventForm = (props) => {
-  const [coin, setCoin] = useState({ name: "" });
+  const [coin, setCoin] = useState({
+    name: '',
+    doxxed: false,
+    audit: false,
+    staySafuScan: false,
+    reflections: false,
+    socials: false,
+    earlySaleDate: new Date(),
+    liquidityDate: new Date(),
+    taxCap: false,
+    elevatedTax: false,
+    lowTax: false,
+    noTax: false
+  });
   const { isSaving, error, save } = useNewMoralisObject('Event');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target.value);
     props.handleSubmit(coin);
   };
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = target.value;
+
+    let value = ''
+    if (target.type === 'checkbox'){
+      value = target.checked
+    } else {
+      value = target.value;
+    }
     setCoin((prev) => {
-      const newCoin = Object.assign({}, prev);
+      let newCoin = Object.assign({}, prev);
       newCoin[name] = value;
       return newCoin;
     });
@@ -44,27 +62,39 @@ export const EventForm = (props) => {
         <legend>Due Dilligence</legend>
 
         <Stack>
-          <Checkbox name="doxxed" id="doxxedcb">
+          <Checkbox name="doxxed" id="doxxed" isChecked={coin.doxxed} onChange={handleChange}>
             Doxxed Founders
           </Checkbox>
 
-          <Checkbox name="size" id="auditcb" value="medium">
+          <Checkbox name="audit" id="auditcb" isChecked={coin.audit} onChange={handleChange}>
             Contract Audit
           </Checkbox>
 
-          <Checkbox name="size" id="taxcapcb" value="large">
+          <Checkbox name="taxCap" id="taxcapcb" isChecked={coin.taxCap} onChange={handleChange}>
             Maximum cap on taxes in contract
           </Checkbox>
 
-          <Checkbox name="size" id="staysafucb" value="large">
+          <Checkbox name="elevatedTax" id="elevatedtaxcb" isChecked={coin.elevatedTax} onChange={handleChange}>
+            Elevated taxes
+          </Checkbox>
+
+          <Checkbox name="lowTax" id="lowtaxcb" isChecked={coin.lowTax} onChange={handleChange}>
+            Low taxes
+          </Checkbox>
+
+          <Checkbox name="noTax" id="notaxcb" isChecked={coin.noTax} onChange={handleChange}>
+            no tax
+          </Checkbox>
+
+          <Checkbox name="staySafuScan" id="staysafucb" isChecked={coin.staySafuScan} onChange={handleChange}>
             StaySafu scan
           </Checkbox>
 
-          <Checkbox name="size" id="reflectionscb" value="large">
+          <Checkbox name="reflections" id="reflectionscb" isChecked={coin.reflections} onChange={handleChange}>
             Reflections
           </Checkbox>
 
-          <Checkbox type="checkbox" name="size" id="socialscb" value="large">
+          <Checkbox name="socials" id="socialscb" isChecked={coin.socials} onChange={handleChange}>
             Socials
           </Checkbox>
         </Stack>
